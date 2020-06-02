@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="MyEditText">
+        <attr name="bckgrColor" format="color"/>
+        <attr name="shadowColor" format="color"/>
+        <attr name="textSize" format="integer"/>
+        <attr name="title" format="string"/>
+    </declare-styleable>
+</resources>

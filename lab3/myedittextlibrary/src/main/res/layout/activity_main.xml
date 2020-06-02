@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:editText="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/myLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.myedittextlibrary.MyEditText
+                android:id="@+id/myEditText"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical = "true"
+                android:layout_centerHorizontal="true"
+                editText:bckgrColor="#ff0000"
+                editText:shadowColor="#FFFFFF"
+                editText:textSize="20"
+                editText:title="lab3"
+        />
+</RelativeLayout>
