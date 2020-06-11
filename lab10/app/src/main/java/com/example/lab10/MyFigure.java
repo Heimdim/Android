@@ -48,28 +48,6 @@ public class MyFigure {
             0f, 0f, 0f, 1.0f,
             0f, 0f, 1f, 1.0f,};
 
-    float pyramidCoords[] = {
-             0f,  0f,  0f,
-            -1f, -2f,  1f,
-             1f, -2f,  1f,
-             0f,  0f,  0f,
-             1f, -2f,  1f,
-             0f, -2f, -1f,
-             0f,  0f,  0f,
-            -1f, -2f,  1f,
-             0f, -2f, -1f,
-            -1f, -2f,  1f,
-             0f, -2f, -1f,
-             1f, -2f,  1f
-    };
-
-    short drawPyramid[] = {
-            0, 1, 2,
-            3, 4, 5,
-            6, 7, 8,
-            9, 10, 11
-    };
-
 
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
     private final int vertexStrideC = COLORS_PER_VERTEX * 4; // 4 bytes per vertex

@@ -20,14 +20,15 @@ public class MyFigure {
     //Geometry
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
+    private FloatBuffer texBuffer;
     private int mPositionHandle;
     private int mMVPMatrixHandle;
     private int textureHandle;
     private final int mProgram;
+    private int uTextureUnitLocation;
 
     static final int COORDS_PER_VERTEX = 3;
     private int texture;
-
 
     static float cubeCoords[] = {
 //            -0.5f,  0.5f, 0.5f,   // top left
@@ -38,61 +39,49 @@ public class MyFigure {
 //            -0.5f,  -0.5f, -0.5f,   // bottom left back
 //            0.5f,   -0.5f, -0.5f,   // bottom right back
 //            0.5f,   0.5f, -0.5f  // top right back
-            -1.0f,-1.0f,-1.0f, // Треугольник 1 : начало
-            -1.0f,-1.0f, 1.0f,
-            -1.0f, 1.0f, 1.0f, // Треугольник 1 : конец
-            1.0f, 1.0f,-1.0f, // Треугольник 2 : начало
-            -1.0f,-1.0f,-1.0f,
-            -1.0f, 1.0f,-1.0f, // Треугольник 2 : конец
-            1.0f,-1.0f, 1.0f,
-            -1.0f,-1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f, 1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            -1.0f,-1.0f,-1.0f,
-            -1.0f,-1.0f,-1.0f,
-            -1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f,-1.0f,
-            1.0f,-1.0f, 1.0f,
-            -1.0f,-1.0f, 1.0f,
-            -1.0f,-1.0f,-1.0f,
-            -1.0f, 1.0f, 1.0f,
-            -1.0f,-1.0f, 1.0f,
-            1.0f,-1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f, 1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f,-1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f,-1.0f,
-            -1.0f, 1.0f,-1.0f,
-            1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f,-1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f,-1.0f, 1.0f
-    };
 
-    private final short drawOrder[] = {
-            0,1,2,
-            0,1,3,
-            2,3,5,
-            5,3,4,
-            5,4, 7,
-            5,7,6,
-            6,5,2,
-            2,1,6,
-            1,6,7,
-            7,1, 0,
-            0,3,7,
-            3,7,4
+//            -1f,-1f,-1f,
+//            -1f,-1f,1f,
+//            1f, -1f,1f,
+//            1f,-1f,-1f,
+//            1f, 1f, -1f,
+//            1f, 1f, 1f,
+//            -1f,1f,1f,
+//            -1f,1f,-1f
+
+
+            -1,  1, 1,   0, 0,
+            -1, -1, 1,   0, 1,
+            1,  1, 1,   1, 0,
+            1, -1, 1,   1, 1,
+
+             1,1,-1,  0, 0,
+            -1,1,-1,   0, 1,
+            1,  1, 1,   1, 0,
+            -1,  1, 1,  1, 1,
+
+            1,-1,-1,  0, 0,
+            1,1,-1,   0, 1,
+            1, -1, 1,   1, 0,
+            1, 1, 1,  1, 1,
+
+            -1,-1,-1,  0, 0,
+            1,-1,-1,   0, 1,
+            -1, -1, 1,   1, 0,
+            1, -1, 1,  1, 1,
+
+            -1,-1,-1,  0, 0,
+            -1,1,-1,   0, 1,
+            -1, -1, 1,   1, 0,
+            -1, 1, 1,  1, 1,
+
+            -1,1,-1,  0, 0,
+            1,1,-1,   0, 1,
+            -1, -1, -1,   1, 0,
+            1, -1, -1,  1, 1
     };
 
 
-    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
     //Rendering
     private final String vertexShaderCode =
                     "uniform mat4 uMVPMatrix;" +
@@ -112,9 +101,6 @@ public class MyFigure {
                     "  gl_FragColor = texture2D(uTextureUnit, vTexture);" +
                     "}";
 
-    short[] finalDrawOrder;
-    private int textureLocation;
-
     public MyFigure(Context context) {
         ByteBuffer bb = ByteBuffer.allocateDirect(cubeCoords.length * 4);
         bb.order(ByteOrder.nativeOrder());
@@ -122,18 +108,10 @@ public class MyFigure {
         vertexBuffer.put(cubeCoords);
         vertexBuffer.position(0);
 
-        bb = ByteBuffer.allocateDirect(drawOrder.length * 4);
-        bb.order(ByteOrder.nativeOrder());
-        drawListBuffer = bb.asShortBuffer();
-        drawListBuffer.put(drawOrder);
-        drawListBuffer.position(0);
-
-        finalDrawOrder = drawOrder;
+        texture  = loadTexture(context, R.drawable.cat);
 
         int vertexShader = MyRenderer.loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
         int fragmentShader = MyRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
-
-        texture  = loadTexture(context, R.drawable.cat);
 
         mProgram = GLES20.glCreateProgram();
         GLES20.glAttachShader(mProgram, vertexShader);
@@ -144,27 +122,30 @@ public class MyFigure {
     public void draw(float[] mvpMatrix, GL10 gl10){
         GLES20.glUseProgram(mProgram);
 
-        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
-        GLES20.glEnableVertexAttribArray(mPositionHandle);
-        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,GLES20.GL_FLOAT, false,vertexStride, vertexBuffer);
-
-        textureLocation = glGetAttribLocation(mProgram, "aTexture");
-        textureHandle = glGetUniformLocation(mProgram, "uTextureUnit");
-        vertexBuffer.position(0);
-        glVertexAttribPointer(textureLocation, 2, GL_FLOAT,
-                false, 20, vertexBuffer);
-        glEnableVertexAttribArray(textureLocation);
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
-
-        glUniform1i(textureHandle, 0);
-
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
 
-        GLES20.glDrawElements(GLES20.GL_TRIANGLES, finalDrawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
-       // glDrawArrays(GL_TRIANGLES, 0, 12*3);
+        vertexBuffer.position(0);
+        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,GLES20.GL_FLOAT, false,(COORDS_PER_VERTEX+2)*4, vertexBuffer);
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
+
+        vertexBuffer.position(3);
+        textureHandle = glGetAttribLocation(mProgram, "aTexture");
+        uTextureUnitLocation = glGetAttribLocation(mProgram, "uTextureUnit");
+        glVertexAttribPointer(textureHandle, 2, GL_FLOAT,
+                false, (COORDS_PER_VERTEX+2)*4, vertexBuffer);
+        glEnableVertexAttribArray(textureHandle);
+
+        // помещаем текстуру в target 2D юнита 0
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        // юнит текстуры
+        glUniform1i(uTextureUnitLocation, 0);
+
+      //  GLES20.glDrawElements(GLES20.GL_TRIANGLES, finalDrawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+        GLES20.glDrawArrays(GL_TRIANGLE_STRIP,0,24);
 
         GLES20.glDisableVertexAttribArray(mPositionHandle);
 
