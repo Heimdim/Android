@@ -1,6 +1,6 @@
 # Android
 #lab1
-![alt text](lab1/execute.jpg width="200" height="400")
+<img src="lab1/execute.jpg" width="250" height="250">
 #lab2
 ![alt text](lab2/execute.jpg?raw=true)
 #lab3
