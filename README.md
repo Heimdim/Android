@@ -1,25 +1,25 @@
 # Android
 #lab1
-<img src="lab1/execute.jpg" width="250" height="500">
+<img src="lab1/execute.jpg" width="250" height="450">
 #lab2
-![alt text](lab2/execute.jpg?raw=true)
+<img src="lab2/execute.jpg" width="250" height="450">
 #lab3
-![alt text](lab3/execute.jpg?raw=true)
+<img src="lab3/execute.jpg" width="250" height="450">
 #lab4
-![alt text](lab4/execute.jpg?raw=true)
+<img src="lab4/execute.jpg" width="250" height="450">
 #lab5
-![alt text](lab5/execute.jpg?raw=true)
+<img src="lab5/execute.jpg" width="250" height="450">
 #lab7
-![alt text](lab7/execute.jpg?raw=true)
-![alt text](lab7/execute1.jpg?raw=true)
+<img src="lab7/execute.jpg" width="250" height="450">
+<img src="lab7/execute1.jpg" width="250" height="450">
 #lab8
-![alt text](lab8/execute.jpg?raw=true)
-![alt text](lab8_2/execute.jpg?raw=true)
+<img src="lab8/execute.jpg" width="250" height="450">
+<img src="lab8_2/execute.jpg" width="250" height="450">
 #lab10
-![alt text](lab10/execute.jpg?raw=true)
+<img src="lab10/execute.jpg" width="250" height="450">
 #lab11
-![alt text](lab11/execute.jpg?raw=true)
+<img src="lab11/execute.jpg" width="250" height="450">
 #lab12
-![alt text](lab12/execute.jpg?raw=true)
+<img src="lab12/execute.jpg" width="250" height="450">
 #lab13
-![alt text](lab13/execute.jpg?raw=true)
+<img src="lab13/execute.jpg" width="250" height="450">
