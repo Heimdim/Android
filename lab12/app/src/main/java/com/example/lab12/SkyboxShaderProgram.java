@@ -20,7 +20,7 @@ public class SkyboxShaderProgram {
 					"gl_Position = gl_Position.xyww;" +
 					"}";
 	final String fragmentShader =
-			"precision mediump float;" +
+					"precision mediump float;" +
 					"uniform samplerCube u_TextureUnit;" +
 					"varying vec3 v_Position;" +
 					"void main()" +
@@ -55,7 +55,6 @@ public class SkyboxShaderProgram {
 
 	public void setUniforms(float[] matrix, int textureId){
 		glUniformMatrix4fv(uMatrixLocation, 1, false, matrix, 0);
-		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
 		glUniform1i(uTextureUnitLocation, 0);

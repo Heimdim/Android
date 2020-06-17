@@ -52,7 +52,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         glViewport(0, 0, width, height);
-        perspectiveM(projectionMatrix, 0, 45, (float)width/(float)height, 1f, 10f);
+        perspectiveM(projectionMatrix, 0, 100, (float)width/(float)height, 1f, 10f);
     }
 
     @Override
