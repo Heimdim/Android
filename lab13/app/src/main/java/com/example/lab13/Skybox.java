@@ -14,26 +14,26 @@ public class Skybox {
 	
 	public Skybox(){
 		skyBoxCoords = new float[]{
-				1,  1,  1,   0.0f,  0.0f, 1.0f,//1
-				1, -1,  1,   0.0f,  0.0f, 1.0f,//3
-				-1,  1,  1,   0.0f,  0.0f, 1.0f,//0
-				-1,  1,  1,   0.0f,  0.0f, 1.0f,//0
-				1, -1,  1,   0.0f,  0.0f, 1.0f,//3
-				-1, -1,  1,   0.0f,  0.0f, 1.0f,//2
+				1,  1,  1,  1.0f,  0.0f, 0.0f,//1
+				1, -1,  1,   1.0f,  0.0f, 0.0f,//3
+				-1,  1,  1,  1.0f,  0.0f, 0.0f,//0
+				-1,  1,  1,  1.0f,  0.0f, 0.0f,//0
+				1, -1,  1,   1.0f,  0.0f, 0.0f,//3
+				-1, -1,  1,   1.0f,  0.0f, 0.0f,//2
 
-				-1,  1, -1, 0.0f,  0.0f,  -1.0f,//4
-				-1, -1, -1, 0.0f,  0.0f,  -1.0f,//6
-				1,  1, -1, 0.0f,  0.0f,  -1.0f,//5
-				1,  1, -1, 0.0f,  0.0f,  -1.0f,//5
-				-1, -1, -1, 0.0f,  0.0f,  -1.0f,//6
-				1, -1, -1, 0.0f,  0.0f,  -1.0f, //7
+				-1,  1, -1, 1.0f,0.0f,  0.0f,//4
+				-1, -1, -1, 1.0f,0.0f,  0.0f,//6
+				1,  1, -1, 1.0f, 0.0f,  0.0f,//5
+				1,  1, -1, 1.0f,  0.0f,  0.0f,//5
+				-1, -1, -1, 1.0f, 0.0f,  0.0f,//6
+				1, -1, -1, 1.0f,  0.0f,  0.0f, //7
 
-				-1,  1,  1, -1.0f,  0.0f,  0.0f,//0
-				-1, -1,  1, -1.0f,  0.0f,  0.0f,//2
-				-1,  1, -1, -1.0f,  0.0f,  0.0f,//4
-				-1,  1, -1, -1.0f,  0.0f,  0.0f,//4
-				-1, -1,  1, -1.0f,  0.0f,  0.0f,//2
-				-1, -1, -1, -1.0f,  0.0f,  0.0f,//6
+				-1,  1,  1, 1.0f,  0.0f,  0.0f,//0
+				-1, -1,  1, 1.0f,  0.0f,  0.0f,//2
+				-1,  1, -1, 1.0f,  0.0f,  0.0f,//4
+				-1,  1, -1, 1.0f,  0.0f,  0.0f,//4
+				-1, -1,  1, 1.0f,  0.0f,  0.0f,//2
+				-1, -1, -1, 1.0f,  0.0f,  0.0f,//6
 
 				1,  1, -1, 1.0f,  0.0f,  0.0f,//5
 				1, -1, -1,1.0f,  0.0f,  0.0f,//7
@@ -53,8 +53,8 @@ public class Skybox {
 				-1, -1,  1, 0.0f,  -1.0f,  0.0f,//2
 				1, -1, -1, 0.0f,  -1.0f,  0.0f,//7
 				1, -1, -1, 0.0f,  -1.0f,  0.0f,//7
-				-1, -1,  1, 0.0f,  -1.0f,  0.0f,//2
-				1, -1,  1, 0.0f,  -1.0f,  0.0f//3
+				-1, -1,  1, 0.0f, -1.0f,  0.0f,//2
+				1, -1,  1, 0.0f, -1.0f,  0.0f//3
 		};
 		
 
@@ -75,15 +75,14 @@ public class Skybox {
 		glEnableVertexAttribArray(attributeLocation);
 
 		vertexBuffer.position(POSITON_COMPONENT_COUNT);
-		glVertexAttribPointer(norm, 2, GL_FLOAT, false,24,vertexBuffer);
+		glVertexAttribPointer(norm, 3, GL_FLOAT, false,24,vertexBuffer);
 		glEnableVertexAttribArray(norm);
 
 
 	}
 	
-	public void draw(MyRenderer renderer){
-		glDrawArrays(GL_TRIANGLES, 0, 36*3); //3 vertices for triangle
+	public void draw(){
+		glDrawArrays(GL_TRIANGLES, 0, 35*3); //3 vertices for triangle
 
-		glDisableVertexAttribArray(renderer.skyboxProgram.getPositionAttributeLocation());
 	}
 }

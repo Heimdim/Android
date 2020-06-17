@@ -40,7 +40,7 @@ public class SkyboxShaderProgram {
 
 					"float diff = max(dot(Normal, FragPos), 0.0);"+
 
-					"gl_FragColor = vec4(textureCube(u_TextureUnit, v_Position).xyz*(1.0-diff),textureCube(u_TextureUnit, v_Position).w);" +
+					"gl_FragColor = vec4(textureCube(u_TextureUnit, v_Position).xyz*(0.6-diff),textureCube(u_TextureUnit, v_Position).w);" +
 					"}";
 
 

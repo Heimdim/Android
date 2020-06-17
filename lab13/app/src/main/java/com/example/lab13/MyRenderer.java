@@ -46,7 +46,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
         skyboxProgram.setUniforms(viewProjectionMatrix,skyboxTexture);
         skybox.bindData(skyboxProgram);
-        skybox.draw(this);
+        skybox.draw();
 
     }
 
