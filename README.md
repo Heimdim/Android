@@ -1,6 +1,6 @@
 # Android
 #lab1
-![alt text](lab1/execute.jpg?raw=true)
+![alt text](lab1/execute.jpg?raw=true =250x250)
 #lab2
 ![alt text](lab2/execute.jpg?raw=true)
 #lab3
